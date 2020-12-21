@@ -1,3 +1,4 @@
+
 let game;
 let gameOptions = {
 
@@ -57,6 +58,7 @@ window.onload = function() {
     }
     game = new Phaser.Game(gameConfig);
 }
+
 class preloadGame extends Phaser.Scene{
     constructor(){
         super("PreloadGame");
@@ -65,6 +67,9 @@ class preloadGame extends Phaser.Scene{
         this.load.tilemapTiledJSON("level", "level.json");
         this.load.image("tile", "tile.png");
         this.load.image("hero", "/assets/hero.png");
+        this.load.image("hero2", "/assets/hero2.png");
+
+        this.socket = io();
     }
     create(){
         this.scene.start("PlayGame");
@@ -92,9 +97,12 @@ class playGame extends Phaser.Scene{
 
         // add the hero sprite and enable arcade physics for the hero
         this.hero = this.physics.add.sprite(260, 376, "hero");
+        this.hero2 = this.physics.add.sprite(260, 376, "hero2");
+
 
         // set hero horizontal speed
         this.hero.body.velocity.x = gameOptions.heroSpeed;
+        this.hero2.body.velocity.x = gameOptions.heroSpeed;
 
         // hero can jump at the moment
         this.canJump = true;
